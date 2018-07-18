@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Lets Play</title>
+       <meta charset="utf-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+       <style type="text/css">
+        form {
+            height: 150px;
+            width: 18%;
+            padding: 0px;
+            margin: 5px 5px 5px 5px;
+            background-color: rgb(98, 185, 255);
+            border-radius: 10px;
+            text-align: center;
+            display:inline-block;
+            vertical-align: top;
+        }
+        input{
+          margin: 64px 0 0 0;
+        }
+        div.activity{
+          height: 150px;
+          width: 400px;
+          margin: 0px;
+          border-radius: 5px;
+          overflow: scroll;
+          background-color: whitesmoke;
+        }
+        li{
+          text-align: left;
+          list-style-type: none;
+        }
+        .black{
+          color: black;
+        }
+        .red{
+          color: red;
+        }
+        
+    </style>
+</head>
+    <body> 
+      
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                      <h2 class ="display-1"> Your Current Gold Amount: {{request.session.x}}</h2>
+                      <h5>*  You will have to pay the casino if you owe, before you earn any gold! *</h5>
+                      <br>
+                      <p class="lead"></p>
+                      <form action="/count" method="post">
+                        {% csrf_token %}
+                        <h4>Farm</h4>
+                        <input type="hidden" name="building" value="farm" />
+                        <input type="submit" value="Find Gold!" class="btn btn-success"/>
+                      </form>
+                      <form action="/count" method="post">
+                        {% csrf_token %}
+                        <h4>Cave</h4>
+                        <input type="hidden" name="building" value="cave" />
+                        <input type="submit" value="Find Gold!" class="btn btn-success"/>
+                      </form>
+                      <form action="/count" method="post">
+                        {% csrf_token %}
+                        <h4>House</h4>
+                        <input type="hidden" name="building" value="house" />
+                        <input type="submit" value="Find Gold!" class="btn btn-success"/>
+                      </form>
+                      <form action="/count" method="post">
+                        {% csrf_token %}
+                        <h4>Casino</h4>
+                        <input type="hidden" name="building" value="casino" />
+                        <input type="submit" value="Find Gold!" class="btn btn-success"/>
+                      </form>
+                      <form action="/">
+                        {% csrf_token %}
+                        <h4>Start Fresh</h4>
+                        <a href="/reset"><input type="button" name="button" value="Reset" class="btn btn-success"></a>
+                      </form>
+                      <br>
+                      <label for="Activity">Activity:</label>
+                      <form action="/count">
+                        {% csrf_token %}
+                        <div class="activity">
+                          <ul>
+                            {% for i in request.session.list %}
+                              {{ i | safe }}
+                            {% endfor %}
+                          </ul> 
+                        </div> 
+                      </form>    
+                </div>
+            </div>
+    </body>
+</html>
